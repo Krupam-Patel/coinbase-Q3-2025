@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# build a DataFrame with quarter, institutional, retail, total, retail_pct
 data = [
     {'quarter':'Q2 23', 'institutional':78,  'retail':14},
     {'quarter':'Q3 23', 'institutional':65,  'retail':11},
@@ -27,12 +26,12 @@ ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='medium
 ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
 ax1.set_ylabel('Volume (US$ billion)')
 
-# line chart for retail% on secondary y-axis
+# line chart for retail % on secondary y-axis
 ax2 = ax1.twinx()
 ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', label='Retail %')
 ax2.set_ylabel('Retail %')
 
-# annotate percentages
+# annotating percentages
 for i, row in df.iterrows():
     ax2.annotate(f"{row['retail_pct']:.0f}%", (i, row['retail_pct']), textcoords="offset points", xytext=(0,5), ha='center')
 
