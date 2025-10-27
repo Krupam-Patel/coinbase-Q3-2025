@@ -27,7 +27,7 @@ ax2.set_ylabel('Blockchain Reward Revenue ($M)')
 ax2.set_ylim(50, 250)
 
 # Bar chart for Staked ETH
-bars = ax1.bar(df['quarter'], df['staked_eth'], label='Staked ETH (K)', color='mediumpurple')
+bars = ax1.bar(df['quarter'], df['staked_eth'], label='Staked ETH (K)')
 
 # Annotate bar values
 for i, row in df.iterrows():
