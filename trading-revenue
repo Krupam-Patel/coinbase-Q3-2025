@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Example data – you must substitute/estimate your own numbers
 data = [
     {'quarter':'Q2-23', 'vol_retail':? , 'rev_retail':310, 'vol_inst':? , 'rev_inst':17},
     {'quarter':'Q3-23', 'vol_retail':? , 'rev_retail':275, 'vol_inst':? , 'rev_inst':14},
@@ -17,25 +16,25 @@ data = [
 
 df = pd.DataFrame(data)
 
-# Compute take-rates (in %): revenue / volume 
+# Computing rates 
 df['take_retail_pct'] = df['rev_retail'] / df['vol_retail'] * 100
 df['take_inst_pct']   = df['rev_inst']   / df['vol_inst']   * 100
 
 # Plotting
 fig, ax1 = plt.subplots(figsize=(10,6))
 
-# stacked bars for revenues
+# Stacked bars for revenues
 ax1.bar(df['quarter'], df['rev_retail'], label='Retail Revenue', color='lightgrey')
 ax1.bar(df['quarter'], df['rev_inst'], bottom=df['rev_retail'], label='Institutional Revenue', color='mediumpurple')
 ax1.set_ylabel('Revenue (US$ M)')
 
-# second y-axis for take rate lines
+# Line graph 
 ax2 = ax1.twinx()
 ax2.plot(df['quarter'], df['take_retail_pct'], marker='o', color='violet', label='Retail Take Rate')
 ax2.plot(df['quarter'], df['take_inst_pct'],   marker='o', color='black', label='Institutional Take Rate')
 ax2.set_ylabel('Take Rate (%)')
 
-# annotations for take-rates
+# Annotations for take-rates
 for i, row in df.iterrows():
     ax2.annotate(f"{row['take_retail_pct']:.2f}%",  (i, row['take_retail_pct']), textcoords="offset points", xytext=(0,5), ha='center', color='violet')
     ax2.annotate(f"{row['take_inst_pct']:.2f}%",    (i, row['take_inst_pct']),   textcoords="offset points", xytext=(0,-10), ha='center', color='black')
