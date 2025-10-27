@@ -1,0 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Input data – adjust or fill missing values as needed
+data = [
+    {'quarter':'Q1-24', 'non_fee':28.55, 'fee':27.55},
+    {'quarter':'Q2-24', 'non_fee':28.19, 'fee':24.31},
+    {'quarter':'Q3-24', 'non_fee':26.67, 'fee':7.33},
+    {'quarter':'Q4-24', 'non_fee':36.43, 'fee':31.57},
+    {'quarter':'Q1-25', 'non_fee':40.70, 'fee':27.30},
+    {'quarter':'Q2-25', 'non_fee':36.38, 'fee':17.12},
+    {'quarter':'Q3-25', 'non_fee':40.70, 'fee':17.68},
+]
+
+df = pd.DataFrame(data)
+df['total'] = df['non_fee'] + df['fee']
+
+# Plot
+fig, ax = plt.subplots(figsize=(10,6))
+
+ax.bar(df['quarter'], df['non_fee'], label='Base Non-Fee Revenue', color='mediumpurple')
+ax.bar(df['quarter'], df['fee'], bottom=df['non_fee'], label='Base Fee Revenue', color='lightgrey')
+
+ax.set_ylabel('Revenue (US$ M)')
+ax.set_title('Base Revenue ($M)')
+
+for i, row in df.iterrows():
+    ax.text(i, row['non_fee']/2, f"{row['non_fee']:.2f}", ha='center', va='center', color='white')
+    ax.text(i, row['non_fee'] + row['fee']/2, f"{row['fee']:.2f}", ha='center', va='center', color='black')
+
+ax.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
