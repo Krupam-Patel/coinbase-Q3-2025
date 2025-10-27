@@ -20,20 +20,20 @@ df = pd.DataFrame(data)
 df['total'] = df['institutional'] + df['retail']
 df['retail_pct'] = df['retail'] / df['total'] * 100
 
-# Plot
+# Plotting
 fig, ax1 = plt.subplots(figsize=(10,6))
 
-# Bar chart for volumes
+# Stacked bars for revenues
 ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='mediumpurple')
 ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
 ax1.set_ylabel('Volume (US$ billion)')
 
-# Line chart for retail % on secondary y-axis
+# Line graph 
 ax2 = ax1.twinx()
 ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', label='Retail %')
 ax2.set_ylabel('Retail %')
 
-# Annotating percentages
+# Annotations
 for i, row in df.iterrows():
     ax2.annotate(f"{row['retail_pct']:.0f}%", (i, row['retail_pct']), textcoords="offset points", xytext=(0,5), ha='center')
 
