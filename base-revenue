@@ -13,21 +13,24 @@ data = [
 ]
 
 df = pd.DataFrame(data)
+
+# Computing rates
 df['total'] = df['non_fee'] + df['fee']
 
-# Plot
+# Plotting
 fig, ax = plt.subplots(figsize=(10,6))
 
+# Stacked bars for revenues
 ax.bar(df['quarter'], df['non_fee'], label='Base Non-Fee Revenue', color='mediumpurple')
 ax.bar(df['quarter'], df['fee'], bottom=df['non_fee'], label='Base Fee Revenue', color='lightgrey')
-
 ax.set_ylabel('Revenue (US$ M)')
-ax.set_title('Base Revenue ($M)')
 
+# Annotations
 for i, row in df.iterrows():
     ax.text(i, row['non_fee']/2, f"{row['non_fee']:.2f}", ha='center', va='center', color='white')
     ax.text(i, row['non_fee'] + row['fee']/2, f"{row['fee']:.2f}", ha='center', va='center', color='black')
 
+ax.set_title('Base Revenue ($M)')
 ax.legend()
 plt.xticks(rotation=45)
 plt.tight_layout()
