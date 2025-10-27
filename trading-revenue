@@ -34,7 +34,7 @@ ax2.plot(df['quarter'], df['take_retail_pct'], marker='o', color='violet', label
 ax2.plot(df['quarter'], df['take_inst_pct'],   marker='o', color='black', label='Institutional Take Rate')
 ax2.set_ylabel('Take Rate (%)')
 
-# Annotations for take-rates
+# Annotations
 for i, row in df.iterrows():
     ax2.annotate(f"{row['take_retail_pct']:.2f}%",  (i, row['take_retail_pct']), textcoords="offset points", xytext=(0,5), ha='center', color='violet')
     ax2.annotate(f"{row['take_inst_pct']:.2f}%",    (i, row['take_inst_pct']),   textcoords="offset points", xytext=(0,-10), ha='center', color='black')
