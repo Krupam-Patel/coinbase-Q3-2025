@@ -1,49 +1,55 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 
-data = [
-    {'quarter':'Q2-23', 'vol_retail':? , 'rev_retail':310, 'vol_inst':? , 'rev_inst':17},
-    {'quarter':'Q3-23', 'vol_retail':? , 'rev_retail':275, 'vol_inst':? , 'rev_inst':14},
-    {'quarter':'Q4-23', 'vol_retail':? , 'rev_retail':493, 'vol_inst':? , 'rev_inst':37},
-    {'quarter':'Q1-24', 'vol_retail':? , 'rev_retail':935, 'vol_inst':? , 'rev_inst':64},
-    {'quarter':'Q2-24', 'vol_retail':? , 'rev_retail':665, 'vol_inst':? , 'rev_inst':64},
-    {'quarter':'Q3-24', 'vol_retail':? , 'rev_retail':483, 'vol_inst':? , 'rev_inst':55},
-    {'quarter':'Q4-24', 'vol_retail':? , 'rev_retail':1347, 'vol_inst':? , 'rev_inst':141},
-    {'quarter':'Q1-25', 'vol_retail':? , 'rev_retail':1096, 'vol_inst':? , 'rev_inst':99},
-    {'quarter':'Q2-25', 'vol_retail':? , 'rev_retail':650, 'vol_inst':? , 'rev_inst':61},
-    {'quarter':'Q3-25', 'vol_retail':? , 'rev_retail':734, 'vol_inst':? , 'rev_inst':77},
-]
-
+# Data
+data = {
+    'Quarter': ['Q2’23','Q3’23','Q4’23','Q1’24','Q2’24','Q3’24','Q4’24','Q1’25','Q2’25','Q3’25'],
+    'Retail': [310, 275, 493, 935, 665, 483, 1347, 1096, 650, 734],
+    'Institutional': [17, 14, 37, 64, 64, 55, 141, 99, 61, 77],
+    'TakeRate': [2.20, 2.60, 1.90, 1.80, 1.42, 1.43, 1.40, 1.40, 1.51, 1.55]
+}
 df = pd.DataFrame(data)
 
-# Computing rates 
-df['take_retail_pct'] = df['rev_retail'] / df['vol_retail'] * 100
-df['take_inst_pct']   = df['rev_inst']   / df['vol_inst']   * 100
+# Create plot
+fig, ax1 = plt.subplots(figsize=(11, 5.5))
 
-# Plotting
-fig, ax1 = plt.subplots(figsize=(10,6))
+# Bar plot for revenues
+bar_width = 0.6
+x = np.arange(len(df))
 
-# Labeling axis
-ax1.set_ylabel('Revenue (US$ M)')
-ax2.set_ylabel('Take Rate (%)')
-ax2 = ax1.twinx()
+ax1.bar(x, df['Retail'], width=bar_width, color='lightgray', label='Retail', zorder=2)
+ax1.bar(x, df['Institutional'], width=bar_width, bottom=df['Retail'], color='mediumpurple', alpha=0.7, label='Institutional', zorder=3)
 
-# Stacked bars for revenues
-ax1.bar(df['quarter'], df['rev_retail'], label='Retail Revenue', color='lightgrey')
-ax1.bar(df['quarter'], df['rev_inst'], bottom=df['rev_retail'], label='Institutional Revenue', color='mediumpurple')
-
-# Line graph 
-ax2.plot(df['quarter'], df['take_retail_pct'], marker='o', color='violet', label='Retail Take Rate')
-ax2.plot(df['quarter'], df['take_inst_pct'],   marker='o', color='black', label='Institutional Take Rate')
-
-# Annotations
+# Annotate bar values
 for i, row in df.iterrows():
-    ax2.annotate(f"{row['take_retail_pct']:.2f}%",  (i, row['take_retail_pct']), textcoords="offset points", xytext=(0,5), ha='center', color='violet')
-    ax2.annotate(f"{row['take_inst_pct']:.2f}%",    (i, row['take_inst_pct']),   textcoords="offset points", xytext=(0,-10), ha='center', color='black')
+    ax1.text(i, row['Retail']/2, f"{int(row['Retail'])}", ha='center', va='center', fontsize=10, color='black')
+    ax1.text(i, row['Retail'] + row['Institutional']/2, f"{int(row['Institutional'])}", ha='center', va='center', fontsize=10, color='black')
 
-ax1.set_title('Coinbase Trading Revenue ($M)')
-ax1.legend(loc='upper left')
-ax2.legend(loc='upper right')
-plt.xticks(rotation=45)
+# Axis labels and formatting
+ax1.set_xlabel('')
+ax1.set_ylabel('Revenue ($M)', fontsize=11)
+ax1.set_xticks(x)
+ax1.set_xticklabels(df['Quarter'], fontsize=10)
+ax1.tick_params(axis='y', labelsize=10)
+ax1.set_ylim(0, 1500)
+ax1.grid(True, linestyle='--', alpha=0.6, zorder=1)
+
+# Line plot for Take Rate (%)
+ax2 = ax1.twinx()
+ax2.plot(x, df['TakeRate'], color='black', marker='o', linewidth=1.5, markersize=5, zorder=4)
+ax2.set_ylabel('Take Rate (%)', fontsize=11)
+ax2.set_ylim(0, 3.0)
+ax2.tick_params(axis='y', labelsize=10)
+
+# Annotate Take Rate values
+for i, row in df.iterrows():
+    ax2.annotate(f"{row['TakeRate']:.2f}%", (i, row['TakeRate']),
+                 textcoords="offset points", xytext=(0,5), ha='center', fontsize=10, color='black')
+
+# Title and legend
+ax1.set_title('Coinbase Trading Revenue ($M)', fontsize=14, weight='medium', pad=10)
+ax1.legend(frameon=True, loc='upper left', fontsize=10)
+
 plt.tight_layout()
 plt.show()
