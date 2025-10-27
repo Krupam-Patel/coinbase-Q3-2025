@@ -23,16 +23,18 @@ df['take_inst_pct']   = df['rev_inst']   / df['vol_inst']   * 100
 # Plotting
 fig, ax1 = plt.subplots(figsize=(10,6))
 
+# Labeling axis
+ax1.set_ylabel('Revenue (US$ M)')
+ax2.set_ylabel('Take Rate (%)')
+ax2 = ax1.twinx()
+
 # Stacked bars for revenues
 ax1.bar(df['quarter'], df['rev_retail'], label='Retail Revenue', color='lightgrey')
 ax1.bar(df['quarter'], df['rev_inst'], bottom=df['rev_retail'], label='Institutional Revenue', color='mediumpurple')
-ax1.set_ylabel('Revenue (US$ M)')
 
 # Line graph 
-ax2 = ax1.twinx()
 ax2.plot(df['quarter'], df['take_retail_pct'], marker='o', color='violet', label='Retail Take Rate')
 ax2.plot(df['quarter'], df['take_inst_pct'],   marker='o', color='black', label='Institutional Take Rate')
-ax2.set_ylabel('Take Rate (%)')
 
 # Annotations
 for i, row in df.iterrows():
