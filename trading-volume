@@ -16,32 +16,46 @@ data = [
 
 df = pd.DataFrame(data)
 
-# Computing rates
+# Calculating totals and retail %
 df['total'] = df['institutional'] + df['retail']
 df['retail_pct'] = df['retail'] / df['total'] * 100
 
-# Plotting
-fig, ax1 = plt.subplots(figsize=(10,6))
+# Graph Setup
+fig, ax1 = plt.subplots(figsize=(14, 9))
+ax2 = ax1.twinx()
 
-# Labeling axis
-ax1.set_ylabel('Volume (US$ billion)')
-ax2.set_ylabel('Retail %')
+# Axis labels
+ax1.set_ylabel('Volume (US$ billion)', fontsize=13)
+ax2.set_ylabel('Retail %', fontsize=13)
 
-# Stacked bars for revenues
+# Bars for Institutional and Retail
 ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='mediumpurple')
 ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
 
-# Line graph 
-ax2 = ax1.twinx()
-ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', label='Retail %')
+# Line for Retail %
+ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', linewidth=2.5, label='Retail %')
 
-# Annotations
+# Annotations for Retail % line
 for i, val in enumerate(df['retail_pct']):
-    ax2.text(i, val + 0.5, f"{val:.0f}%", ha='center')
+    ax2.text(i, val - 0.15, f"{val:.0f}%", ha='center', va='top', fontsize=12, fontweight='bold')
 
-ax1.set_title('Coinbase Trading Volume (US$ Billion)')
-ax1.legend(loc='upper left')
-ax2.legend(loc='upper right')
-plt.xticks(rotation=45)
+# Label bar values
+for i in range(len(df)):
+    inst_val = df.loc[i, 'institutional']
+    ret_val = df.loc[i, 'retail']
+
+    # Institutional label (inside purple section)
+    ax1.text(i, inst_val / 2, f"{inst_val}", ha='center', va='center', color='white', fontsize=11, fontweight='bold')
+
+    # Retail label (inside gray section)
+    ax1.text(i, inst_val + ret_val / 2 + 3, f"{ret_val}", ha='center', va='center', color='black', fontsize=11, fontweight='bold')
+
+# Finishing touches
+ax1.set_title('Coinbase Trading Volume (US$ Billion)', fontsize=18, fontweight='bold', pad=20)
+ax1.legend(loc='upper left', fontsize=11)
+ax2.legend(loc='upper right', fontsize=11)
+plt.xticks(rotation=45, fontsize=12)
+ax1.tick_params(axis='y', labelsize=11)
+ax2.tick_params(axis='y', labelsize=11)
 plt.tight_layout()
 plt.show()
