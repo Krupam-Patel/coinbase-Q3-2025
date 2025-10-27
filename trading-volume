@@ -20,7 +20,7 @@ df = pd.DataFrame(data)
 df['total'] = df['institutional'] + df['retail']
 df['retail_pct'] = df['retail'] / df['total'] * 100
 
-# Graph Setup
+# Graph setup
 fig, ax1 = plt.subplots(figsize=(14, 9))
 ax2 = ax1.twinx()
 
