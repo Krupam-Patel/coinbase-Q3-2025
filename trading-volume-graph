@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# build a DataFrame with quarter, institutional, retail, total, retail_pct
+data = [
+    {'quarter':'Q2 23', 'institutional':78,  'retail':14},
+    {'quarter':'Q3 23', 'institutional':65,  'retail':11},
+    {'quarter':'Q4 23', 'institutional':125, 'retail':29},
+    {'quarter':'Q1 24', 'institutional':256, 'retail':56},
+    {'quarter':'Q2 24', 'institutional':189, 'retail':37},
+    {'quarter':'Q3 24', 'institutional':151, 'retail':34},
+    {'quarter':'Q4 24', 'institutional':345, 'retail':94},
+    {'quarter':'Q1 25', 'institutional':315, 'retail':78},
+    {'quarter':'Q2 25', 'institutional':194, 'retail':43},
+    {'quarter':'Q3 25', 'institutional':248, 'retail':47},
+]
+
+df = pd.DataFrame(data)
+df['total'] = df['institutional'] + df['retail']
+df['retail_pct'] = df['retail'] / df['total'] * 100
+
+# Plot
+fig, ax1 = plt.subplots(figsize=(10,6))
+
+# bar chart for volumes
+ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='mediumpurple')
+ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
+ax1.set_ylabel('Volume (US$ billion)')
+
+# line chart for retail% on secondary y-axis
+ax2 = ax1.twinx()
+ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', label='Retail %')
+ax2.set_ylabel('Retail %')
+
+# annotate percentages
+for i, row in df.iterrows():
+    ax2.annotate(f"{row['retail_pct']:.0f}%", (i, row['retail_pct']), textcoords="offset points", xytext=(0,5), ha='center')
+
+ax1.set_title('Coinbase Trading Volume (US$ Billion)')
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
