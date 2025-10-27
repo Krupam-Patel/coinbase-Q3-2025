@@ -13,8 +13,10 @@ data = [
     {'quarter':'Q2 25', 'institutional':194, 'retail':43},
     {'quarter':'Q3 25', 'institutional':248, 'retail':47},
 ]
-# Computing rates
+
 df = pd.DataFrame(data)
+
+# Computing rates
 df['total'] = df['institutional'] + df['retail']
 df['retail_pct'] = df['retail'] / df['total'] * 100
 
