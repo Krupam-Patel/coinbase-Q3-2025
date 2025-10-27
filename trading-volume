@@ -36,8 +36,8 @@ ax2 = ax1.twinx()
 ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', label='Retail %')
 
 # Annotations
-for i, row in df.iterrows():
-    ax2.annotate(f"{row['retail_pct']:.0f}%", (i, row['retail_pct']), textcoords="offset points", xytext=(0,5), ha='center')
+for i, val in enumerate(df['retail_pct']):
+    ax2.text(i, val + 0.5, f"{val:.0f}%", ha='center')
 
 ax1.set_title('Coinbase Trading Volume (US$ Billion)')
 ax1.legend(loc='upper left')
