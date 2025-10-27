@@ -23,15 +23,17 @@ df['retail_pct'] = df['retail'] / df['total'] * 100
 # Plotting
 fig, ax1 = plt.subplots(figsize=(10,6))
 
+# Labeling axis
+ax1.set_ylabel('Volume (US$ billion)')
+ax2.set_ylabel('Retail %')
+
 # Stacked bars for revenues
 ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='mediumpurple')
 ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
-ax1.set_ylabel('Volume (US$ billion)')
 
 # Line graph 
 ax2 = ax1.twinx()
 ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', label='Retail %')
-ax2.set_ylabel('Retail %')
 
 # Annotations
 for i, row in df.iterrows():
