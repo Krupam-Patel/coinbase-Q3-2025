@@ -6,12 +6,12 @@ data = [
     {'quarter':'Q3-23', 'vol_retail':? , 'rev_retail':275, 'vol_inst':? , 'rev_inst':14},
     {'quarter':'Q4-23', 'vol_retail':? , 'rev_retail':493, 'vol_inst':? , 'rev_inst':37},
     {'quarter':'Q1-24', 'vol_retail':? , 'rev_retail':935, 'vol_inst':? , 'rev_inst':64},
-    {'quarter':'Q2-24', 'vol_retail':? , 'rev_retail':665, 'vol_inst':? , 'rev_inst':55},
-    {'quarter':'Q3-24', 'vol_retail':? , 'rev_retail':483, 'vol_inst':? , 'rev_inst':141},
+    {'quarter':'Q2-24', 'vol_retail':? , 'rev_retail':665, 'vol_inst':? , 'rev_inst':64},
+    {'quarter':'Q3-24', 'vol_retail':? , 'rev_retail':483, 'vol_inst':? , 'rev_inst':55},
     {'quarter':'Q4-24', 'vol_retail':? , 'rev_retail':1347, 'vol_inst':? , 'rev_inst':141},
     {'quarter':'Q1-25', 'vol_retail':? , 'rev_retail':1096, 'vol_inst':? , 'rev_inst':99},
     {'quarter':'Q2-25', 'vol_retail':? , 'rev_retail':650, 'vol_inst':? , 'rev_inst':61},
-    {'quarter':'Q3-25', 'vol_retail':? , 'rev_retail':700, 'vol_inst':? , 'rev_inst':74},
+    {'quarter':'Q3-25', 'vol_retail':? , 'rev_retail':734, 'vol_inst':? , 'rev_inst':77},
 ]
 
 df = pd.DataFrame(data)
