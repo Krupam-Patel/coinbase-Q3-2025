@@ -7,7 +7,7 @@ data = [
     {'quarter':"Q4'23", 'staked_eth':4344, 'reward_rev':95},
     {'quarter':"Q1'24", 'staked_eth':4502, 'reward_rev':151},
     {'quarter':"Q2'24", 'staked_eth':4386, 'reward_rev':185},
-    {'quarter':"Q3'24", 'staked_eth':4198, 'reward_rev':151},
+    {'quarter':"Q3'24", 'staked_eth':4198, 'reward_rev':155},
     {'quarter':"Q4'24", 'staked_eth':3734, 'reward_rev':215},
     {'quarter':"Q1'25", 'staked_eth':2935, 'reward_rev':197},
     {'quarter':"Q2'25", 'staked_eth':2652, 'reward_rev':145},
@@ -19,34 +19,34 @@ df = pd.DataFrame(data)
 # Plotting
 fig, ax1 = plt.subplots(figsize=(12,6))
 
-# Bar chart for Staked ETH
-bars = ax1.bar(df['quarter'], df['staked_eth'], label='Staked ETH (K)', color='mediumpurple')
+# Labeling axis
 ax1.set_ylabel('Staked ETH (K)')
 ax1.set_ylim(0, 5000)
+ax2 = ax1.twinx()
+ax2.set_ylabel('Blockchain Reward Revenue ($M)')
+ax2.set_ylim(50, 250)
+
+# Bar chart for Staked ETH
+bars = ax1.bar(df['quarter'], df['staked_eth'], label='Staked ETH (K)', color='mediumpurple')
 
 # Annotate bar values
 for i, row in df.iterrows():
     ax1.text(i, row['staked_eth']-200, f"{row['staked_eth']}", 
              ha='center', va='bottom', color='white', fontweight='bold')
 
-# Second y-axis for Reward Revenue
-ax2 = ax1.twinx()
+# Line graph for Reward Revenue
 ax2.plot(df['quarter'], df['reward_rev'], marker='o', color='black', linewidth=2,
          label='Blockchain Reward Revenue ($M)')
-ax2.set_ylabel('Blockchain Reward Revenue ($M)')
-ax2.set_ylim(50, 250)
 
 # Annotate line values
 for i, row in df.iterrows():
     ax2.text(i, row['reward_rev']+5, f"{row['reward_rev']}", 
              ha='center', va='bottom', color='black', fontweight='bold')
 
-plt.title('Blockchain Rewards Revenue & Staked ETH ($M)')
 
-# Legends for both axes
+plt.title('Blockchain Rewards Revenue & Staked ETH ($M)')
 ax1.legend(loc='upper left')
 ax2.legend(loc='upper right')
-
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
