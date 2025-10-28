@@ -1,0 +1,57 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = [
+    {"quarter": "Q2'23", "revenue": 151, "percent": 39},
+    {"quarter": "Q3'23", "revenue": 172, "percent": 49},
+    {"quarter": "Q4'23", "revenue": 172, "percent": 55},
+    {"quarter": "Q1'24", "revenue": 197, "percent": 69},
+    {"quarter": "Q2'24", "revenue": 240, "percent": 61},
+    {"quarter": "Q3'24", "revenue": 247, "percent": 72},
+    {"quarter": "Q4'24", "revenue": 226, "percent": 62},
+    {"quarter": "Q1'25", "revenue": 298, "percent": 68},
+    {"quarter": "Q2'25", "revenue": 332, "percent": 68},
+    {"quarter": "Q3'25", "revenue": 356, "percent": 68},
+]
+
+df = pd.DataFrame(data)
+
+# Create figure and axes
+fig, ax1 = plt.subplots(figsize=(12, 6))
+
+# Bar plot
+bars = ax1.bar(df["quarter"], df["revenue"], color="#8C6AD9", alpha=0.9, label="Stablecoin Revenue ($M)")
+ax1.set_ylabel("Stablecoin Revenue ($M)", color="black", fontsize=11, fontweight="bold")
+ax1.set_ylim(0, 450)
+
+for bar in bars:
+    height = bar.get_height()
+    ax1.text(
+        bar.get_x() + bar.get_width() / 2,
+        height / 2,
+        f"{int(height)}",
+        ha="center",
+        va="center",
+        color="white",
+        fontsize=9,
+        fontweight="bold",
+    )
+
+# Second axis (black line for %)
+ax2 = ax1.twinx()
+ax2.plot(df["quarter"], df["percent"], color="black", marker="o", linewidth=2, label="% of Total USDC Interest Revenue")
+ax2.set_ylabel("% of Total USDC Interest Revenue", color="black", fontsize=11, fontweight="bold")
+ax2.set_ylim(0, 80)
+
+# Annotate line points
+for i, val in enumerate(df["percent"]):
+    ax2.text(i, val + 1.5, f"{val}%", ha="center", va="bottom", color="black", fontsize=9, fontweight="bold")
+
+
+plt.title("Stablecoin Revenue & % of Total USDC Revenue", fontsize=13, fontweight="bold")
+ax1.legend(loc="upper left", frameon=True)
+ax2.legend(loc="upper right", frameon=True)
+ax1.grid(axis="y", linestyle="--", alpha=0.6)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
