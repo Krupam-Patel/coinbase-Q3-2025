@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Input data – adjust or fill missing values as needed
 data = [
     {'quarter':'Q1-24', 'non_fee':28.55, 'fee':27.55},
     {'quarter':'Q2-24', 'non_fee':28.19, 'fee':24.31},
