@@ -27,12 +27,15 @@ ax2.set_ylabel('Blockchain Reward Revenue ($M)')
 ax2.set_ylim(50, 250)
 
 # Bar chart for Staked ETH
-bars = ax1.bar(df['quarter'], df['staked_eth'], label='Staked ETH (K)')
+bars = ax1.bar(df['quarter'], df['staked_eth'], color='#9470D1', label='Staked ETH (K)')
 
 # Annotate bar values
-for i, row in df.iterrows():
-    ax1.text(i, row['staked_eth']-200, f"{row['staked_eth']}", 
-             ha='center', va='bottom', color='white', fontweight='bold')
+for bar in bars:
+    height = bar.get_height()
+    ax1.text(
+        bar.get_x() + bar.get_width()/2, height/2, f"{int(height)}",
+        ha='center', va='center', color='white', fontweight='bold', fontsize=10
+    )
 
 # Line graph for Reward Revenue
 ax2.plot(df['quarter'], df['reward_rev'], marker='o', color='black', linewidth=2,
@@ -40,9 +43,8 @@ ax2.plot(df['quarter'], df['reward_rev'], marker='o', color='black', linewidth=2
 
 # Annotate line values
 for i, row in df.iterrows():
-    ax2.text(i, row['reward_rev']+5, f"{row['reward_rev']}", 
+    ax2.text(i, row['reward_rev'] + 5, f"{row['reward_rev']}", 
              ha='center', va='bottom', color='black', fontweight='bold')
-
 
 plt.title('Blockchain Rewards Revenue & Staked ETH ($M)')
 ax1.legend(loc='upper left')
