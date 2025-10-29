@@ -32,12 +32,12 @@ ax2.set_ylabel('Retail %', fontsize=13)
 ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='mediumpurple')
 ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
 
-# Line for Retail %
-ax2.plot(df['quarter'], df['retail_pct'], marker='o', linewidth=2.5, label='Retail %')
+# Line for Retail % (black)
+ax2.plot(df['quarter'], df['retail_pct'], marker='o', linewidth=2.5, color='black', label='Retail %')
 
 # Annotations for Retail % line
 for i, val in enumerate(df['retail_pct']):
-    ax2.text(i, val - 0.15, f"{val:.0f}%", ha='center', va='top', fontsize=12, fontweight='bold')
+    ax2.text(i, val - 0.15, f"{val:.0f}%", ha='center', va='top', fontsize=12, fontweight='bold', color='black')
 
 # Label bar values
 for i in range(len(df)):
@@ -45,12 +45,14 @@ for i in range(len(df)):
     ret_val = df.loc[i, 'retail']
 
     # Institutional label (inside purple section)
-    ax1.text(i, inst_val / 2, f"{inst_val}", ha='center', va='center', color='white', fontsize=11, fontweight='bold')
+    ax1.text(i, inst_val / 2, f"{inst_val}", ha='center', va='center',
+             color='white', fontsize=11, fontweight='bold')
 
     # Retail label (inside gray section)
-    ax1.text(i, inst_val + ret_val / 2 + 3, f"{ret_val}", ha='center', va='center', color='black', fontsize=11, fontweight='bold')
+    ax1.text(i, inst_val + ret_val / 2 + 3, f"{ret_val}", ha='center', va='center',
+             color='black', fontsize=11, fontweight='bold')
 
-# One unified legend
+# Unified legend
 handles1, labels1 = ax1.get_legend_handles_labels()
 handles2, labels2 = ax2.get_legend_handles_labels()
 ax1.legend(handles1 + handles2, labels1 + labels2, loc='upper left', fontsize=11)
