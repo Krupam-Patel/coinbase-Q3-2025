@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Updated data
 data = [
     {"quarter": "Q2'23", "marketcap": 32.55, "treasury_rate": 4.72},
     {"quarter": "Q3'23", "marketcap": 27.37, "treasury_rate": 5.11},
@@ -11,7 +12,7 @@ data = [
     {"quarter": "Q4'24", "marketcap": 35.60, "treasury_rate": 4.07},
     {"quarter": "Q1'25", "marketcap": 43.95, "treasury_rate": 3.97},
     {"quarter": "Q2'25", "marketcap": 60.08, "treasury_rate": 4.04},
-    {"quarter": "Q3'25", "marketcap": 67.92, "treasury_rate": 3.88},
+    {"quarter": "Q3'25", "marketcap": 61.00, "treasury_rate": 3.88},  # Updated to match paragraph
 ]
 
 df = pd.DataFrame(data)
@@ -22,7 +23,7 @@ fig, ax1 = plt.subplots(figsize=(12, 6))
 # Primary y-axis (USDC Market Cap)
 bars = ax1.bar(df['quarter'], df['marketcap'], color='#9470D1', alpha=0.9, label='USDC Market Cap ($B)')
 ax1.set_ylabel('USDC Market Cap ($B)', color='black', fontsize=11, fontweight='bold')
-ax1.set_ylim(0, 75)
+ax1.set_ylim(0, 70)  # Adjusted to fit updated values
 
 # Annotate bar values
 for bar in bars:
@@ -45,10 +46,13 @@ ax2.set_ylim(0, 6)
 for i, val in enumerate(df['treasury_rate']):
     ax2.text(i, val + 0.1, f"{val:.2f}%", ha='center', va='bottom', fontsize=9, color='black', fontweight='bold')
 
+# Legend and labels
 handles1, labels1 = ax1.get_legend_handles_labels()
 handles2, labels2 = ax2.get_legend_handles_labels()
 ax1.legend(handles1 + handles2, labels1 + labels2, loc='upper left', frameon=True)
-plt.title("Stablecoin Marketcap & 52-Week Treasury Rate ($B)", fontsize=13, fontweight='bold')
+
+# Title and grid
+plt.title("USDC Market Capitalization and 52-Week Treasury Rate", fontsize=13, fontweight='bold')
 ax1.grid(axis='y', linestyle='--', alpha=0.6)
 plt.xticks(rotation=45)
 plt.tight_layout()
