@@ -21,7 +21,7 @@ fig, ax1 = plt.subplots(figsize=(12, 6))
 
 # Primary y-axis (USDC Market Cap)
 bars = ax1.bar(df['quarter'], df['marketcap'], color='#9470D1', alpha=0.9, label='USDC Market Cap ($B)')
-ax1.set_ylabel('USDC Market Cap ($B)', color='black', fontsize=11, fontweight='bold')  # changed to black
+ax1.set_ylabel('USDC Market Cap ($B)', color='black', fontsize=11, fontweight='bold')
 ax1.set_ylim(0, 75)
 
 # Annotate bar values
@@ -45,10 +45,12 @@ ax2.set_ylim(0, 6)
 for i, val in enumerate(df['treasury_rate']):
     ax2.text(i, val + 0.1, f"{val:.2f}%", ha='center', va='bottom', fontsize=9, color='black', fontweight='bold')
 
+# ✅ Unified legend in the top right
+handles1, labels1 = ax1.get_legend_handles_labels()
+handles2, labels2 = ax2.get_legend_handles_labels()
+ax1.legend(handles1 + handles2, labels1 + labels2, loc='upper left', frameon=True)
 
 plt.title("Stablecoin Marketcap & 52-Week Treasury Rate ($B)", fontsize=13, fontweight='bold')
-ax1.legend(loc='upper left', frameon=True)
-ax2.legend(loc='upper right', frameon=True)
 ax1.grid(axis='y', linestyle='--', alpha=0.6)
 plt.xticks(rotation=45)
 plt.tight_layout()
