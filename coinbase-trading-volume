@@ -33,7 +33,7 @@ ax1.bar(df['quarter'], df['institutional'], label='Institutional', color='medium
 ax1.bar(df['quarter'], df['retail'], bottom=df['institutional'], label='Retail', color='lightgray')
 
 # Line for Retail %
-ax2.plot(df['quarter'], df['retail_pct'], marker='o', color='black', linewidth=2.5, label='Retail %')
+ax2.plot(df['quarter'], df['retail_pct'], marker='o', linewidth=2.5, label='Retail %')
 
 # Annotations for Retail % line
 for i, val in enumerate(df['retail_pct']):
@@ -50,10 +50,13 @@ for i in range(len(df)):
     # Retail label (inside gray section)
     ax1.text(i, inst_val + ret_val / 2 + 3, f"{ret_val}", ha='center', va='center', color='black', fontsize=11, fontweight='bold')
 
-# Finishing touches
+# One unified legend
+handles1, labels1 = ax1.get_legend_handles_labels()
+handles2, labels2 = ax2.get_legend_handles_labels()
+ax1.legend(handles1 + handles2, labels1 + labels2, loc='upper left', fontsize=11)
+
+# Final touches
 ax1.set_title('Coinbase Trading Volume (US$ Billion)', fontsize=18, fontweight='bold', pad=20)
-ax1.legend(loc='upper left', fontsize=11)
-ax2.legend(loc='upper right', fontsize=11)
 plt.xticks(rotation=45, fontsize=12)
 ax1.tick_params(axis='y', labelsize=11)
 ax2.tick_params(axis='y', labelsize=11)
