@@ -38,10 +38,10 @@ ax1.tick_params(axis='y', labelsize=10)
 ax1.set_ylim(0, 1600)
 ax1.grid(True, linestyle='--', alpha=0.6, zorder=1)
 
-# Line plot for Take Rate
+# Line plot for Take Rate — now added to legend
 ax2 = ax1.twinx()
-ax2.plot(x, df['TakeRate'], color='black', marker='o',
-         linewidth=1.5, markersize=5, zorder=4)
+line_take_rate, = ax2.plot(x, df['TakeRate'], color='black', marker='o',
+                           linewidth=1.5, markersize=5, zorder=4, label='Take Rate (%)')
 ax2.set_ylabel('Take Rate (%)', fontsize=11)
 ax2.set_ylim(0, 3.0)
 ax2.tick_params(axis='y', labelsize=10)
@@ -52,9 +52,14 @@ for i, row in df.iterrows():
                  textcoords="offset points", xytext=(0,5),
                  ha='center', fontsize=10, color='black')
 
+# Combine legends from both axes (so the line shows up)
+handles1, labels1 = ax1.get_legend_handles_labels()
+handles2, labels2 = ax2.get_legend_handles_labels()
+ax1.legend(handles1 + [line_take_rate], labels1 + ['Take Rate (%)'],
+           frameon=True, loc='upper left', fontsize=10)
+
 # Finishing touches
 ax1.set_title('Coinbase Trading Revenue ($M)', fontsize=14, weight='medium', pad=10)
-ax1.legend(frameon=True, loc='upper left', fontsize=10)
 
 plt.tight_layout()
 plt.show()
