@@ -39,7 +39,7 @@ for bar in bars:
 
 # Second axis (black line for %)
 ax2 = ax1.twinx()
-ax2.plot(df["quarter"], df["percent"], color="black", marker="o", linewidth=2, label="% of Total USDC Interest Revenue")
+line = ax2.plot(df["quarter"], df["percent"], color="black", marker="o", linewidth=2, label="% of Total USDC Interest Revenue")[0]
 ax2.set_ylabel("% of Total USDC Interest Revenue", color="black", fontsize=11, fontweight="bold")
 ax2.set_ylim(0, 80)
 
@@ -48,9 +48,10 @@ for i, val in enumerate(df["percent"]):
     ax2.text(i, val + 1.5, f"{val}%", ha="center", va="bottom", color="black", fontsize=9, fontweight="bold")
 
 
+handles = [bars, line]
+labels = [h.get_label() for h in handles]
+ax1.legend(handles, labels, loc="upper left", frameon=True)
 plt.title("Stablecoin Revenue & % of Total USDC Revenue", fontsize=13, fontweight="bold")
-ax1.legend(loc="upper left", frameon=True)
-ax2.legend(loc="upper right", frameon=True)
 ax1.grid(axis="y", linestyle="--", alpha=0.6)
 plt.xticks(rotation=45)
 plt.tight_layout()
