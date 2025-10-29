@@ -11,7 +11,7 @@ data = [
     {'quarter':'Q4 24', 'institutional':345, 'retail':94},
     {'quarter':'Q1 25', 'institutional':315, 'retail':78},
     {'quarter':'Q2 25', 'institutional':194, 'retail':43},
-    {'quarter':'Q3 25', 'institutional':248, 'retail':47},
+    {'quarter':'Q3 25', 'institutional':248, 'retail':62},
 ]
 
 df = pd.DataFrame(data)
