@@ -19,7 +19,7 @@ bar_width = 0.6
 x = np.arange(len(df))
 ax1.bar(x, df['Retail'], width=bar_width, color='lightgray', label='Retail', zorder=2)
 ax1.bar(x, df['Institutional'], width=bar_width, bottom=df['Retail'],
-        color='mediumpurple', alpha=0.7, label='Institutional', zorder=3)
+        color='mediumpurple', label='Institutional', zorder=3)
 
 # Annotate bar values
 for i, row in df.iterrows():
@@ -35,7 +35,7 @@ ax1.set_ylabel('Revenue ($M)', fontsize=11)
 ax1.set_xticks(x)
 ax1.set_xticklabels(df['Quarter'], fontsize=10)
 ax1.tick_params(axis='y', labelsize=10)
-ax1.set_ylim(0, 1600)  # Increased to support higher Q3'25 bars
+ax1.set_ylim(0, 1600)
 ax1.grid(True, linestyle='--', alpha=0.6, zorder=1)
 
 # Line plot for Take Rate
@@ -55,5 +55,6 @@ for i, row in df.iterrows():
 # Finishing touches
 ax1.set_title('Coinbase Trading Revenue ($M)', fontsize=14, weight='medium', pad=10)
 ax1.legend(frameon=True, loc='upper left', fontsize=10)
+
 plt.tight_layout()
 plt.show()
