@@ -30,7 +30,7 @@ for i, row in df.iterrows():
     ax.text(i, row['non_fee'] + row['fee']/2, f"{row['fee']:.2f}", ha='center', va='center', color='black')
 
 ax.set_title('Base Revenue ($M)')
-ax.legend()
+ax.legend(loc='upper left') 
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
