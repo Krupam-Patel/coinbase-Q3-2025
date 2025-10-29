@@ -46,9 +46,10 @@ for i, row in df.iterrows():
     ax2.text(i, row['reward_rev'] + 5, f"{row['reward_rev']}", 
              ha='center', va='bottom', color='black', fontweight='bold')
 
+handles1, labels1 = ax1.get_legend_handles_labels()
+handles2, labels2 = ax2.get_legend_handles_labels()
+ax1.legend(handles1 + handles2, labels1 + labels2, loc='upper left')
 plt.title('Blockchain Rewards Revenue & Staked ETH ($M)')
-ax1.legend(loc='upper left')
-ax2.legend(loc='upper right')
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
