@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Data
 data = [
     {"quarter": "Q2'23", "revenue": 46, "percent": 14},
     {"quarter": "Q3'23", "revenue": 48, "percent": 17},
@@ -20,7 +19,7 @@ df = pd.DataFrame(data)
 # Create figure and axes
 fig, ax1 = plt.subplots(figsize=(12, 6))
 
-# Bar plot (lavender color)
+# Bar plot
 bars = ax1.bar(df["quarter"], df["revenue"], color="#8C6AD9", alpha=0.9, label="Other Subscription and Services Revenue ($M)")
 ax1.set_ylabel("Other Subscription and Services Revenue ($M)", color="black", fontsize=11, fontweight="bold")
 ax1.set_ylim(0, 140)
@@ -39,7 +38,7 @@ for bar in bars:
         fontweight="bold"
     )
 
-# Secondary y-axis (Proportion %)
+# Secondary y-axis
 ax2 = ax1.twinx()
 ax2.plot(df["quarter"], df["percent"], color="black", marker="o", linewidth=2, label="Proportion of Trading Revenue (%)")
 ax2.set_ylabel("Proportion of Trading Revenue (%)", color="black", fontsize=11, fontweight="bold")
@@ -54,9 +53,7 @@ plt.title("Other Subscription and Service Revenue ($M)", fontsize=13, fontweight
 ax1.legend(loc="upper left", frameon=True)
 ax2.legend(loc="upper right", frameon=True)
 
-# Grid, ticks, layout
 ax1.grid(axis="y", linestyle="--", alpha=0.6)
 plt.xticks(rotation=45)
 plt.tight_layout()
-
 plt.show()
